@@ -24,12 +24,36 @@ Add Bus
                                  {% bootstrap_field form.diesel_rate layout='horizontal' %}
                              </div>
                          </div>
+                     <hr>
+                         {% for bus in buses %}
+                             <div class="row">
+                                <div class="col-md-6">
+                                     <div class="form-group">
+                                         <label class="col-md-3 control-label" for="id_blood_group">Bus</label>
+                                         <div class="col-md-9">
+                                             <select readonly name="bus_{{ bus.id }}" class="form-control" title="" id="bus_{{ bus_id }}">
+                                                <option value="{{ bus.id }}">{{ bus }}</option>
+                                             </select>
+                                         </div>
+                                     </div>
+                                </div>
+                                <div class="col-md-6">
+                                 <div class="form-group">
+                                     <label class="col-md-3 control-label" for="bus_{{ bus.id }}_qty">Quantity</label>
+                                     <div class="col-md-9">
+                                         <input type="number" name="bus_{{ bus.id }}_qty" value="0" class="form-control" placeholder="Diesel Quantity" title="" required="" id="bus_{{ id }}_qty">
+                                     </div>
+                                 </div>
+                                </div>
+
+                             </div>
+                         {%  endfor %}
                          <div class="row">
                              <div class="col-md-6">
-                                 {% bootstrap_field form.bus layout='horizontal' %}
+{#                                 {% bootstrap_field form.bus layout='horizontal' %}#}
                              </div>
                              <div class="col-md-6">
-                                 {% bootstrap_field form.quantity layout='horizontal' %}
+{#                                 {% bootstrap_field form.quantity layout='horizontal' %}#}
                              </div>
                          </div>
                          <div class="row">

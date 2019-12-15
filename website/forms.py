@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from .models import Student, Driver, Conductor, Bus, Route, Owner, School, Teacher, PBSUser, FeeCollector, DayExpense
+from .models import Student, Driver, Conductor, Bus, Route, Owner, School, Teacher, PBSUser, FeeCollector, DayExpense, SingleBusExpense
 from tempus_dominus.widgets import DatePicker
 from django.core.validators import RegexValidator
 from dal import autocomplete
@@ -252,5 +252,17 @@ class ExpenseAddForm(forms.ModelForm):
         }
     def __init__(self, *args, **kwargs):
         super(ExpenseAddForm, self).__init__(*args, **kwargs)
+        # self.fields['bus'].empty_label = "Select Bus"
+        # self.fields['bus'].queryset = Bus.objects.all()
+
+
+class SingleExpenseAddForm(forms.ModelForm):
+
+    class Meta:
+        model = SingleBusExpense
+        fields = '__all__'
+
+    def __init__(self, *args, **kwargs):
+        super(SingleExpenseAddForm, self).__init__(*args, **kwargs)
         self.fields['bus'].empty_label = "Select Bus"
         self.fields['bus'].queryset = Bus.objects.all()

@@ -25,9 +25,8 @@
                                                 <tr>
                                                     <th>Date</th>
                                                     <th>Price of Diesel (per lt.)</th>
-                                                    <th>Bus</th>
-                                                    <th>Quantity</th>
-                                                    <th>Price</th>
+                                                    <th>Total Cost</th>
+                                                    <th>Action</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -35,9 +34,12 @@
                                                 <tr>
                                                     <td>{{foo.date}}</td>
                                                     <td>{{foo.diesel_rate}}</td>
-                                                    <td> {{ foo.bus }}</td>
-                                                    <td> {{ foo.quantity }}</td>
                                                     <td> {{ foo.val }}</td>
+                                                    <td>
+                                                         <a href="{% url 'single-expense' foo.id%}">
+                                                         <button class="btn btn-dark small" type="button">View</button>
+                                                              </a>
+                                                     </td>
 
 
                                                 </tr>

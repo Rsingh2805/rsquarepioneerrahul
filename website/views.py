@@ -5,8 +5,8 @@ from .fusioncharts import FusionCharts
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.decorators import login_required
 from .forms import RegistrationForm, StudentAddForm, DriverAddForm, ConductorAddForm, BusAddForm, RouteAddForm, AddOwnerForm, StudentFormWithDate
-from .forms import SchoolAddForm, TeacherAddForm, InUserAddForm, FeeCollectorAddForm, ExpenseAddForm
-from .models import Student, Driver, Conductor, Bus, Route, Owner, School, Teacher, PBSUser, FeeCollector, DayExpense
+from .forms import SchoolAddForm, TeacherAddForm, InUserAddForm, FeeCollectorAddForm, ExpenseAddForm, SingleExpenseAddForm
+from .models import Student, Driver, Conductor, Bus, Route, Owner, School, Teacher, PBSUser, FeeCollector, DayExpense, SingleBusExpense
 from django.contrib import messages
 import datetime
 
@@ -339,17 +339,30 @@ def singleroute(request, pk):
 def expense_diesel(request):
     expenses = DayExpense.objects.all()
     for expense in expenses:
-        expense.val = expense.diesel_rate * expense.quantity
+        val = 0
+        for single_expense in expense.single_expenses.all():
+            val += single_expense.quantity*expense.diesel_rate
+        expense.val = val
+
     return render(request, 'view_expense.html', {'expenses': expenses})
 
 @login_required
 def add_expense(request):
+    buses = Bus.objects.all()
     if request.method == "POST":
         form = ExpenseAddForm(request.POST)
         if form.is_valid():
-            form.save()
+            instance = form.save()
+            for bus in buses:
+                curr = SingleBusExpense(expense=instance, bus_id=request.POST['bus_'+str(bus.id)], quantity=request.POST['bus_'+str(bus.id)+'_qty'])
+                curr.save()
             messages.success(request, 'Expense Added Sucessfully')
             return redirect('expense-diesel')
     else:
         form = ExpenseAddForm()
-    return render(request, 'addexpense.html', {'form': form})
+    return render(request, 'addexpense.html', {'form': form, 'buses': buses})
+
+@login_required
+def single_expense(request, pk):
+    expense = get_object_or_404(DayExpense, id=pk)
+    return render(request, 'single_expense.html', {'expense': expense})

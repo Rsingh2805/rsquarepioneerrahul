@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import PBSUser, Teacher, Student, Conductor, Driver, Owner, School, Bus, DayExpense
+from .models import PBSUser, Teacher, Student, Conductor, Driver, Owner, School, Bus, DayExpense,SingleBusExpense
 
 admin.site.register(School)
 admin.site.register(PBSUser)
@@ -10,3 +10,4 @@ admin.site.register(Driver)
 admin.site.register(Owner)
 admin.site.register(Bus)
 admin.site.register(DayExpense)
+admin.site.register(SingleBusExpense)

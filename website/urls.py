@@ -39,5 +39,6 @@ urlpatterns = [
     path('routes/<int:pk>', views.singleroute, name='single-route'),
     path('expense/', views.expense_diesel, name='expense-diesel'),
     path('addexpense/', views.add_expense, name='add-expense'),
+    path('viewexpense/<int:pk>', views.single_expense, name='single-expense'),
 
 ]

@@ -1,0 +1,76 @@
+{% extends 'dashboardlayout.html' %}
+{% block title  %}
+    Expense | Details
+{% endblock  %}
+{% block content %}
+
+                          <!-- Page-Title -->
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="page-header-title">
+                                    <h4 class="pull-left page-title">Expense Details</h4>
+                                    <ol class="breadcrumb pull-right">
+                                        <li><a href="{% url 'dashboard' %}">Pioneer Bus Service</a></li>
+                                        <li class="active">Expense-detail</li>
+                                    </ol>
+                                    <div class="clearfix"></div>
+                                </div>
+                            </div>
+                        </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    {{ driver.first_name }} {{ driver.last_name }}
+                </div>
+                <div class="panel-body">
+                     <div class="row" style="padding:5px; margin:5px;" >
+        <!-- edit form column -->
+
+
+        <div class="col-lg-8 order-lg-1 personal-info">
+            <form role="form">
+                <div class="form-group row">
+                    <label class="col-lg-3 col-form-label form-control-label">Diesel price</label>
+                    <div class="col-lg-9">
+                        <input class="form-control" type="text" value="{{expense.diesel_rate}}" disabled/>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-lg-3 col-form-label form-control-label">Date</label>
+                    <div class="col-lg-9">
+                        <input class="form-control" type="text" value="{{expense.date}}" disabled/>
+                    </div>
+                </div>
+            {% for single_expense in expense.single_expenses.all %}
+                <div class="form-group row">
+                    <div class="col-md-6">
+                        <label class="col-lg-3 col-form-label form-control-label">Bus</label>
+                        <div class="col-lg-9">
+                            <input class="form-control" type="text" value="{{single_expense.bus}}" placeholder="" disabled/>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="col-lg-3 col-form-label form-control-label">Quantity</label>
+                        <div class="col-lg-9">
+                            <input class="form-control" type="text" value="{{single_expense.quantity}}" placeholder="" disabled/>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+
+                <br>
+            </form>
+        </div>
+        <div class="col-lg-4 order-lg-0 text-center">
+
+        </div>
+    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+{% endblock %}

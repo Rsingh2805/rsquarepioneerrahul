@@ -190,8 +190,8 @@ class FeeCollector(models.Model):
 class DayExpense(models.Model):
     diesel_rate = models.FloatField(verbose_name="Diesel price", default=0)
     date = models.DateField()
-    bus = models.ForeignKey(Bus, on_delete=models.CASCADE)
-    quantity = models.FloatField(default=0)
+    # bus = models.ForeignKey(Bus, on_delete=models.CASCADE)
+    # quantity = models.FloatField(default=0)
 
     def __str__(self):
         return "Expense - "+str(self.date)
@@ -199,3 +199,8 @@ class DayExpense(models.Model):
     def save(self, *args, **kwargs):
         super(DayExpense, self).save(*args, **kwargs)
 
+
+class SingleBusExpense(models.Model):
+    expense = models.ForeignKey(DayExpense, on_delete=models.CASCADE, related_name='single_expenses')
+    bus = models.ForeignKey(Bus, on_delete=models.DO_NOTHING)
+    quantity = models.FloatField(default=0)
